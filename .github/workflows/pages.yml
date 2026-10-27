@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: docs
-        uses: cgs-earth/onto-to-pages@v0
+        uses: cgs-earth/onto-to-pages@main
         with:
           input_dir: ./src
           output_dir: ./dist
