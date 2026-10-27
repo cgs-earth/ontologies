@@ -1,0 +1,97 @@
+@prefix cgs-st: <https://w3id.org/cgs/ontology/core/spatiotemporal/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cgs-st: a owl:Ontology ;
+    dcterms:contributor "Shirly Stephen"@en ;
+    dcterms:created "2026-10-28"^^xsd:date ;
+    dcterms:creator "Center for Geospatial Solutions"@en ;
+    dcterms:description "An ontology for representing spatial and spatiotemporal entities and relationships used by the Center for Geospatial Solutions."@en ;
+    dcterms:title "CGS Spatiotemporal Ontology"@en ;
+    owl:versionInfo "1.0.0" .
+
+#################################################################
+# Annotation properties
+#################################################################
+
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:created a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:source a owl:AnnotationProperty .
+dcterms:title a owl:AnnotationProperty .
+schema:domainIncludes a owl:AnnotationProperty .
+schema:rangeIncludes a owl:AnnotationProperty .
+skos:definition a owl:AnnotationProperty .
+skos:description a owl:AnnotationProperty .
+skos:editorialNote a owl:AnnotationProperty .
+skos:example a owl:AnnotationProperty .
+skos:note a owl:AnnotationProperty .
+skos:prefLabel a owl:AnnotationProperty .
+
+#################################################################
+# Object properties
+#################################################################
+
+cgs-st:spatialRelation a owl:ObjectProperty ;
+    rdfs:label "spatial relation"@en ;
+    skos:definition "A relationship that describes the spatial configuration of two spatial objects."@en .
+
+geo:defaultGeometry a owl:ObjectProperty ;
+    rdfs:subPropertyOf geo:hasGeometry .
+
+geo:hasGeometry a owl:ObjectProperty .
+
+cgs-st:sfContains a owl:ObjectProperty,
+        owl:TransitiveProperty ;
+    rdfs:subPropertyOf cgs-st:spatialRelation ;
+    owl:inverseOf cgs-st:sfWithin ;
+    rdfs:label "sfContains" .
+
+cgs-st:sfEquals a owl:ObjectProperty,
+        owl:SymmetricProperty ;
+    rdfs:subPropertyOf cgs-st:spatialRelation ;
+    rdfs:label "sfEquals" .
+
+cgs-st:sfOverlaps a owl:ObjectProperty,
+        owl:SymmetricProperty ;
+    rdfs:subPropertyOf cgs-st:spatialRelation ;
+    rdfs:label "sfOverlaps" .
+
+cgs-st:sfTouches a owl:ObjectProperty,
+        owl:SymmetricProperty ;
+    rdfs:subPropertyOf cgs-st:spatialRelation ;
+    rdfs:label "sfTouches" .
+
+cgs-st:sfWithin a owl:ObjectProperty,
+        owl:TransitiveProperty ;
+    rdfs:subPropertyOf cgs-st:spatialRelation ;
+    rdfs:label "sfWithin" .
+
+#################################################################
+# Classes
+#################################################################
+
+cgs-st:Region a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "Region"@en .
+
+geo:Feature a owl:Class ;
+    rdfs:subClassOf geo:SpatialObject ;
+    rdfs:comment "Defined by GeoSPARQL."@en ;
+    rdfs:label "Feature"@en .
+
+geo:Geometry a owl:Class ;
+    rdfs:subClassOf geo:SpatialObject ;
+    rdfs:comment "Defined by GeoSPARQL."@en ;
+    rdfs:label "Geometry"@en .
+
+geo:SpatialObject a owl:Class ;
+    rdfs:comment "Defined by GeoSPARQL."@en ;
+    rdfs:label "Spatial object"@en .
