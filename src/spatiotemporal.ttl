@@ -2,7 +2,6 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <https://schema.org/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
@@ -14,7 +13,7 @@ cgs-st: a owl:Ontology ;
     dcterms:creator "Center for Geospatial Solutions"@en ;
     dcterms:description "An ontology for representing spatial and spatiotemporal entities and relationships used by the Center for Geospatial Solutions."@en ;
     dcterms:title "CGS Spatiotemporal Ontology"@en ;
-    owl:versionInfo "1.0.0" .
+    owl:versionInfo "1.1.0" .
 
 #################################################################
 # Annotation properties
@@ -52,27 +51,37 @@ cgs-st:sfContains a owl:ObjectProperty,
         owl:TransitiveProperty ;
     rdfs:subPropertyOf cgs-st:spatialRelation ;
     owl:inverseOf cgs-st:sfWithin ;
-    rdfs:label "sfContains" .
+    rdfs:label "sfContains" ;
+    rdfs:comment "The subject spatially contains the object: no points of the object lie in the exterior of the subject, and at least one point of the interior of the object lies in the interior of the subject"@en .
+
+cgs-st:sfCrosses a owl:ObjectProperty ;
+    rdfs:subPropertyOf cgs-st:spatialRelation ;
+    rdfs:label "sfCrosses" ;
+    rdfs:comment "The subject spatially crosses the object: their interiors intersect, the dimension of the intersection is less than the maximum dimension of the two, and the intersection is not equal to either of them"@en .
 
 cgs-st:sfEquals a owl:ObjectProperty,
         owl:SymmetricProperty ;
     rdfs:subPropertyOf cgs-st:spatialRelation ;
-    rdfs:label "sfEquals" .
+    rdfs:label "sfEquals" ;
+    rdfs:comment "The subject spatially equals the object: their interiors intersect, and no point of the interior or boundary of either lies in the exterior of the other"@en .
 
 cgs-st:sfOverlaps a owl:ObjectProperty,
         owl:SymmetricProperty ;
     rdfs:subPropertyOf cgs-st:spatialRelation ;
-    rdfs:label "sfOverlaps" .
+    rdfs:label "sfOverlaps" ;
+    rdfs:comment "The subject spatially overlaps the object: both have the same dimension, their interiors intersect, and each has at least one interior point that lies in the exterior of the other"@en .
 
 cgs-st:sfTouches a owl:ObjectProperty,
         owl:SymmetricProperty ;
     rdfs:subPropertyOf cgs-st:spatialRelation ;
-    rdfs:label "sfTouches" .
+    rdfs:label "sfTouches" ;
+    rdfs:comment "The subject spatially touches the object: they have at least one point in common, but their interiors do not intersect"@en .
 
 cgs-st:sfWithin a owl:ObjectProperty,
         owl:TransitiveProperty ;
     rdfs:subPropertyOf cgs-st:spatialRelation ;
-    rdfs:label "sfWithin" .
+    rdfs:label "sfWithin" ;
+    rdfs:comment "The subject is spatially within the object: no points of the subject lie in the exterior of the object, and at least one point of the interior of the subject lies in the interior of the object"@en .
 
 #################################################################
 # Classes
